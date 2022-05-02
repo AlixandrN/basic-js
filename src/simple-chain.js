@@ -5,24 +5,35 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 const chainMaker = {
+  arr: [],
   getLength() {
-    throw new NotImplementedError('Not implemented');
+    return this.arr.length
     // remove line with error and write your code here
   },
-  addLink(/* value */) {
-    throw new NotImplementedError('Not implemented');
+  addLink(value) {
+    if (value === undefined) {this.arr.push(`( )`);}
+      else {this.arr.push(`( ${value} )`);}
+      return this
     // remove line with error and write your code here
   },
-  removeLink(/* position */) {
-    throw new NotImplementedError('Not implemented');
+  removeLink(position) {
+    if(this.arr[position] && position !== 0 &&
+      // Number.isInteger(position) &&
+      typeof position === 'number') {
+        this.arr = [...this.arr.slice(0,position -1), ...this.arr.slice(position)]
+        return this
+      }
+    else {this.arr=[]; throw new Error("You can't remove incorrect link!")}
     // remove line with error and write your code here
   },
   reverseChain() {
-    throw new NotImplementedError('Not implemented');
+    this.arr.reverse(); return this
     // remove line with error and write your code here
   },
   finishChain() {
-    throw new NotImplementedError('Not implemented');
+    let printArray = this.arr
+    this.arr = []
+    return printArray.join('~~')
     // remove line with error and write your code here
   }
 };
@@ -30,3 +41,6 @@ const chainMaker = {
 module.exports = {
   chainMaker
 };
+
+// console.log(chainMaker.addLink(null).addLink(false).addLink(0).reverseChain().reverseChain().finishChain())
+// node simple-chain.js
